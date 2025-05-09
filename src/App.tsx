@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import Layout from "~/Layout";
 import "~/App.css";
 
 function App() {
   return (
-    <h1 className="text-red-500">Hello World!!</h1>
+    <div id="app">
+      <Layout>
+        <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      </Layout>
+    </div>
   )
 }
 
