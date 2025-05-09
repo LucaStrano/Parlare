@@ -9,10 +9,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "~/components/ui/sidebar"
-
 import { Settings } from "lucide-react"
+import { ChatItem } from "~/types/main-types"
 
-export default function AppSidebar() {
+interface AppSidebarProps {
+  chats: ChatItem[];
+}
+
+export default function AppSidebar({chats} : AppSidebarProps) {
   return (
     <Sidebar>
 
@@ -21,7 +25,17 @@ export default function AppSidebar() {
       <SidebarContent>
         <SidebarGroup />
             <SidebarGroupContent>
-                {}
+              <SidebarMenu>
+                {chats.map( (chat) =>
+                  (
+                    <SidebarMenuItem key={chat.id} className=" text-lg ml-1 mt-1">
+                      <SidebarMenuButton asChild>
+                        <span>{chat.name}</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  )
+                )}
+              </SidebarMenu>
             </SidebarGroupContent>
         <SidebarGroup />
       </SidebarContent>
