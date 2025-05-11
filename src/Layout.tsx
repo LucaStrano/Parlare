@@ -4,14 +4,17 @@ import { ChatItem } from "~/types/main-types"
 import { platform as tauriPlatform } from '@tauri-apps/plugin-os';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useEffect, useState } from "react";
+import { Button } from "./components/ui/button";
+import { Plus } from "lucide-react";
 interface LayoutProps {
   children: React.ReactNode;
   chats: ChatItem[];
 }
 
+
 const MockTrafficLights = () => {
   return (
-    <div className="fixed top-[1.375rem] left-2 items-center -translate-y-1/2 z-20 w-[3.38rem] h-5 flex justify-between border border-transparent">
+    <div className="fixed left-2 items-center z-20 w-[3.38rem] h-11 flex justify-between border border-transparent">
       <div className="bg-slate-400 w-3 h-3 rounded-xl"></div>
       <div className="bg-slate-400 w-3 h-3 rounded-xl"></div>
       <div className="bg-slate-400 w-3 h-3 rounded-xl"></div>
@@ -45,7 +48,12 @@ export default function Layout({ children, chats }: LayoutProps  ) {
       {platform === "macos" && !isFullScreen && !isFocused && <MockTrafficLights />}
       <AppSidebar chats={chats}/>
       <main>
-        <SidebarTrigger className="z-30 fixed top-[1.375rem] -translate-y-1/2 left-20"/>
+        <div className="z-30 flex flex-row justify-between items-center fixed w-16 h-11 left-20">
+        <SidebarTrigger />
+        <Button id="new-chat" variant="ghost" size="icon" className="h-7 w-7">
+          <Plus width={22} height={22}></Plus>
+        </Button>
+        </div>
         {children}
       </main>
     </SidebarProvider>
