@@ -37,7 +37,7 @@ function App() {
   return (
     <div id="app">
       <Layout chats={chats}>
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        <div></div>
       </Layout>
     </div>
   )
