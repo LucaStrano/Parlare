@@ -20,7 +20,7 @@ export default function AppSidebar({chats} : AppSidebarProps) {
   return (
     <Sidebar>
 
-      <SidebarHeader>Chats</SidebarHeader>
+      <SidebarHeader className="mt-11">Chats</SidebarHeader>
 
       <SidebarContent>
         <SidebarGroup />
@@ -28,7 +28,7 @@ export default function AppSidebar({chats} : AppSidebarProps) {
               <SidebarMenu>
                 {chats.map( (chat) =>
                   (
-                    <SidebarMenuItem key={chat.id} className=" text-lg ml-1 mt-1">
+                    <SidebarMenuItem key={chat.id} className=" text-lg mt-1">
                       <SidebarMenuButton asChild>
                         <span>{chat.name}</span>
                       </SidebarMenuButton>

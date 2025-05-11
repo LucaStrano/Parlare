@@ -12,9 +12,20 @@
   "app": {
     "windows": [
       {
+        "hiddenTitle": true,
         "title": "parlare",
         "width": 800,
-        "height": 600
+        "minWidth": 400,
+        "height": 600,
+        "minHeight": 400,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true,
+        "titleBarStyle": "Overlay",
+        "trafficLightPosition": {
+          "x": 8,
+          "y": 20
+        }
       }
     ],
     "security": {
