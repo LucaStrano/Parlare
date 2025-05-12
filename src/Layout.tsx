@@ -5,7 +5,7 @@ import { platform as tauriPlatform } from '@tauri-apps/plugin-os';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useEffect, useState } from "react";
 import { Button } from "./components/ui/button";
-import { Plus } from "lucide-react";
+import { MessageSquarePlus } from "lucide-react";
 interface LayoutProps {
   children: React.ReactNode;
   chats: ChatItem[];
@@ -51,7 +51,7 @@ export default function Layout({ children, chats }: LayoutProps  ) {
         <div className="z-30 flex flex-row justify-between items-center fixed w-16 h-11 left-20">
         <SidebarTrigger />
         <Button id="new-chat" variant="ghost" size="icon" className="h-7 w-7">
-          <Plus width={22} height={22}></Plus>
+          <MessageSquarePlus width={22} height={22}></MessageSquarePlus>
         </Button>
         </div>
         {children}
