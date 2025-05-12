@@ -9,14 +9,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "~/components/ui/sidebar"
+
 import { Settings } from "lucide-react"
 import { ChatItem } from "~/types/main-types"
 
-interface AppSidebarProps {
-  chats: ChatItem[];
-}
+import {chatsAtom} from "~/atoms/main-atoms"
+import { useAtomValue } from "jotai"
 
-export default function AppSidebar({chats} : AppSidebarProps) {
+export default function AppSidebar() {
+  const chats = useAtomValue(chatsAtom);
   return (
     <Sidebar>
 

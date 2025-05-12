@@ -1,5 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import {chatsAtom} from "~/atoms/main-atoms"
+import { useAtom, useSetAtom } from "jotai";
+
 import { invoke } from "@tauri-apps/api/core";
+
 import Layout from "~/Layout";
 import "~/App.css";
 import type { ChatItem } from "~/types/main-types";
@@ -24,24 +29,19 @@ const mockData: ChatItem[] = [
 
 function App() {
 
-  const [chats, setChats] = useState<ChatItem[]>([]);
-  const [selectedChat, setselectedChat] = useState<ChatItem | null>(null);
+  const setChats = useSetAtom(chatsAtom);
 
   useEffect(() => {
     const fetchChats = () => {
       setChats(mockData);
     };
     fetchChats();
-    // latest chat by default
-    if(chats.length >= 1){
-      setselectedChat(chats[0]);
-    }
   }, []);
 
 
   return (
     <div id="app">
-      <Layout chats={chats} selectedChat={selectedChat}>
+      <Layout>
         <div></div>
       </Layout>
     </div>
