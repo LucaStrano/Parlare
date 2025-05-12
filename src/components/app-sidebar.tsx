@@ -37,7 +37,7 @@ export default function AppSidebar() {
   const chats = useAtomValue(chatsAtom);
 
   return (
-    <Sidebar>
+    <Sidebar className="select-none">
       <SidebarStateManager /> {/* manage open and close state for chat-title dynamic padding */}
       <SidebarHeader className="mt-11">Chats</SidebarHeader>
 
@@ -46,8 +46,11 @@ export default function AppSidebar() {
         {/* SEARCH GROUP */}
         <SidebarGroup>
           <SidebarGroupContent>
-            <Input type="text" placeholder="Search Chats..." className="h-8 italic">
-            </Input>
+            <div className="relative flex-row items-center">
+              <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input type="text" placeholder="Search Chats..." className="h-8 placeholder:italic pl-8">
+              </Input>
+            </div>
           </SidebarGroupContent>
         </SidebarGroup>
 
