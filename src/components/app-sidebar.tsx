@@ -7,20 +7,36 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarMenuItem
 } from "~/components/ui/sidebar"
 
-import { Settings } from "lucide-react"
-import { ChatItem } from "~/types/main-types"
+import { useSidebar } from "~/components/ui/sidebar"
 
-import {chatsAtom} from "~/atoms/main-atoms"
-import { useAtomValue } from "jotai"
+import { Settings } from "lucide-react"
+
+import {chatsAtom, isSidebarOpenAtom} from "~/atoms/main-atoms"
+import { useAtomValue, useSetAtom } from "jotai"
+import { useEffect } from "react"
+
+function SidebarStateManager() {
+  const { open } = useSidebar();
+  const setIsSiderbarOpen = useSetAtom(isSidebarOpenAtom);
+
+  useEffect(() => {
+    setIsSiderbarOpen(open);
+    console.log("Sidebar is now: ", open ? "open" : "closed");
+  }, [open]);
+
+  return null;
+}
 
 export default function AppSidebar() {
+
   const chats = useAtomValue(chatsAtom);
+
   return (
     <Sidebar>
-
+      <SidebarStateManager /> {/* manage open and close state for chat-title dynamic padding */}
       <SidebarHeader className="mt-11">Chats</SidebarHeader>
 
       <SidebarContent>

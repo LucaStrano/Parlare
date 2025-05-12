@@ -1,5 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "~/components/ui/sidebar"
-import { Button } from "./components/ui/button";
+
+import { Button } from "~/components/ui/button";
 
 import AppSidebar from "~/components/app-sidebar"
 import ChatTitle from "~/components/chat-title";
@@ -10,6 +11,9 @@ import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useEffect, useState } from "react";
 
 import { MessageSquarePlus } from "lucide-react";
+
+import { useAtomValue } from "jotai";
+import { isSidebarOpenAtom } from "~/atoms/main-atoms";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -32,17 +36,18 @@ export default function Layout({
   const platform = tauriPlatform()
   const [isFullScreen, setIsFullscreen] = useState(false);
   const [isFocused, setIsFocused] = useState(true);
+  const isSidebarOpen = useAtomValue(isSidebarOpenAtom);
 
   useEffect(() => {
     const setWindowListeners = async () => {
-      const currWindow = await getCurrentWindow()
+      const currWindow = await getCurrentWindow();
       await currWindow.onResized( async ({}) => {
         setIsFullscreen(await currWindow.isFullscreen());
       });
       currWindow.onFocusChanged( async ({ payload: focused }) => {
         setIsFocused(focused);
       });
-    };
+    }
     setWindowListeners();
   }, []);
   
@@ -52,7 +57,7 @@ export default function Layout({
       <div data-tauri-drag-region className="w-full h-11 fixed top-0 left-0 right-0 z-20"></div>
       {platform === "macos" && !isFullScreen && !isFocused && <MockTrafficLights />}
       <AppSidebar/>
-      <main className="w-full h-full">
+      <main className="flex-1 overflow-auto">
         <div className="z-30 flex flex-row justify-between items-center fixed w-16 h-11 left-20">
         <SidebarTrigger />
         <Button id="new-chat" variant="ghost" size="icon" className="h-7 w-7">
@@ -60,7 +65,9 @@ export default function Layout({
         </Button>
         </div>
         <ChatTitle>
-
+          <h1 className={`transition-transform duration-300 ease-in-out ${isSidebarOpen ? "translate-x-4" : "translate-x-40"}`}>
+            Chat title
+          </h1>
         </ChatTitle>
         {children}
       </main>
