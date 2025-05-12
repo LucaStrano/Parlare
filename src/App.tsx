@@ -25,18 +25,23 @@ const mockData: ChatItem[] = [
 function App() {
 
   const [chats, setChats] = useState<ChatItem[]>([]);
+  const [selectedChat, setselectedChat] = useState<ChatItem | null>(null);
 
   useEffect(() => {
     const fetchChats = () => {
       setChats(mockData);
     };
     fetchChats();
+    // latest chat by default
+    if(chats.length >= 1){
+      setselectedChat(chats[0]);
+    }
   }, []);
 
 
   return (
     <div id="app">
-      <Layout chats={chats}>
+      <Layout chats={chats} selectedChat={selectedChat}>
         <div></div>
       </Layout>
     </div>
