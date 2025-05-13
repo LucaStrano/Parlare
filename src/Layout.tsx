@@ -57,14 +57,13 @@ export default function Layout({
       <div data-tauri-drag-region className="w-full h-11 fixed top-0 left-0 right-0 z-20"></div>
       {platform === "macos" && !isFullScreen && !isFocused && <MockTrafficLights />}
       <AppSidebar/>
-      <main className="h-full w-full border border-yellow-500">
-
-        <div className="z-30 flex flex-row justify-between items-center fixed w-16 h-11 left-20">
+      <div className="z-30 flex flex-row justify-between items-center fixed w-16 h-11 left-20">
           <SidebarTrigger />
           <Button id="new-chat" variant="ghost" size="icon" className="h-7 w-7">
             <MessageSquarePlus width={22} height={22}></MessageSquarePlus>
           </Button>
         </div>
+      <main className="h-screen w-screen overflow-hidden flex flex-col">
         <ChatTitle>
           <h1 className={`transition-transform duration-300 ease-in-out ${isSidebarOpen ? "translate-x-4" : "translate-x-40"}`}>
             Chat title
