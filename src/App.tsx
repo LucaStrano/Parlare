@@ -6,6 +6,7 @@ import { useAtom, useSetAtom } from "jotai";
 import { invoke } from "@tauri-apps/api/core";
 
 import Layout from "~/Layout";
+import MainArea from "~/components/main-area";
 import "~/App.css";
 import type { ChatItem } from "~/types/main-types";
 
@@ -40,9 +41,9 @@ function App() {
 
 
   return (
-    <div id="app">
+    <div id="app" className="h-full">
       <Layout>
-        <div></div>
+          <MainArea />
       </Layout>
     </div>
   )
