@@ -9,29 +9,57 @@ export default function MainArea(){
     const areaRef = useRef<HTMLTextAreaElement>(null);
 
     function handleAreaChange(event: ChangeEvent<HTMLTextAreaElement> ){
+
         setAreaValue(event.target.value);
+
         if (areaRef.current) {
-            areaRef.current.style.height = "auto"; // Reset height to allow shrinking
-            areaRef.current.style.height = `${areaRef.current.scrollHeight}px`;
+            const textarea = areaRef.current;
+            const previousStyleHeight = textarea.style.height;
+            textarea.style.height = 'auto'; // force natural scrollHeight
+            const newTargetPixelHeight = textarea.scrollHeight;
+
+            // Restore the previous explicit pixel height or set to current offsetHeight
+            // This gives a concrete starting point for the height transition
+            if (previousStyleHeight && previousStyleHeight !== 'auto' && previousStyleHeight.endsWith('px')) {
+                textarea.style.height = previousStyleHeight;
+            } else {
+                textarea.style.height = `${textarea.offsetHeight}px`;
+            }
+            
+            // Reading offsetHeight to force reflow
+            textarea.offsetHeight; 
+
+            textarea.style.overflow = "hidden";
+            setTimeout(() => {
+                if (areaRef.current) {
+                    textarea.style.overflowY = 'auto';
+                }
+            }, 110);
+
+            requestAnimationFrame(() => {
+                if (areaRef.current) { 
+                    textarea.style.height = `${newTargetPixelHeight}px`;
+                }
+            });
         }
     }
 
     return (
         <div className="flex-1 h-full flex flex-col bg-slate-100 border border-red-500">
             <h1> main area </h1>
-            <div id="input-area" className="flex flex-col mt-auto mb-4 mx-4 rounded-md shadow-md bg-white select-none">
+            <div id="input-area" className="flex flex-col mt-auto mb-4 mx-4 rounded-md shadow-md bg-white select-none transition-[height] duration-75 ease-out">
                 <Textarea
                     ref={areaRef}
                     value={areaValue} 
                     onChange={handleAreaChange} 
                     rows={1}
-                    className="resize-none relative max-h-24 overflow-y-auto border-none placeholder:italic"
+                    className="resize-none mt-1 relative max-h-24 overflow-y-auto border-none placeholder:italic transition-[height] duration-100 ease-out"
                     placeholder="Write Anything..."
                 >
                 </Textarea>
                 <div onClick={() => {areaRef.current?.focus()}} className="flex flex-row justify-end">
                     <Button disabled={areaValue.trim() === ""} id="new-chat" variant="ghost" size="icon" className="h-7 w-7 m-2">
-                        <Send width={22} height={22}></Send>
+                        <Send width={22} height={22} className="rotate-45 -translate-x-[4px]"></Send>
                     </Button>
                 </div>
             </div>
