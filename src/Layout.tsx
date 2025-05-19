@@ -65,7 +65,7 @@ export default function Layout({
         </div>
       <main className="h-screen w-screen overflow-hidden flex flex-col">
         <ChatTitle>
-          <h1 className={`transition-transform duration-300 ease-in-out ${isSidebarOpen ? "translate-x-4" : "translate-x-40"}`}>
+          <h1 className={`transition-[margin] duration-300 ease-in-out ${isSidebarOpen ? "ml-4" : "ml-40"}`}>
             Chat title
           </h1>
         </ChatTitle>
