@@ -72,6 +72,9 @@ export default function MainArea(){
         };
         setChatMessages((prev) => [ ...(prev ?? []), msgObj ]);
         setAreaValue("");
+        if(areaRef.current){
+            areaRef.current.style.height = "auto";
+        }
     }
 
     return (
