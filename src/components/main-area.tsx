@@ -1,7 +1,11 @@
-import { Textarea } from "~/components/ui/textarea";
 import { useState, ChangeEvent, useRef } from "react";
-import { Send, Truck } from "lucide-react";
+
+import { Textarea } from "~/components/ui/textarea";
 import { Button } from "~/components/ui/button";
+import { ScrollArea } from "~/components/ui/scroll-area";
+import Message from "~/components/message";
+
+import { Send } from "lucide-react";
 
 export default function MainArea(){
 
@@ -45,8 +49,12 @@ export default function MainArea(){
     }
 
     return (
-        <div className="flex-1 h-full flex flex-col bg-slate-100 border border-red-500">
-            <h1> main area </h1>
+        <div className="flex-1 h-full flex flex-col bg-slate-100">
+            <ScrollArea className="flex-auto mb-1 border border-red-500">
+                {/* <Message>
+                    
+                </Message> */}
+            </ScrollArea>
             <div id="input-area" className="flex flex-col mt-auto mb-4 mx-4 rounded-md shadow-md bg-white select-none transition-[height] duration-75 ease-out">
                 <Textarea
                     ref={areaRef}
@@ -54,7 +62,7 @@ export default function MainArea(){
                     onChange={handleAreaChange} 
                     rows={1}
                     className="resize-none mt-1 relative max-h-24 overflow-y-auto border-none placeholder:italic transition-[height] duration-100 ease-out"
-                    placeholder="Write Anything..."
+                    placeholder="Wite Anything..."
                 >
                 </Textarea>
                 <div onClick={() => {areaRef.current?.focus()}} className="flex flex-row justify-end">
