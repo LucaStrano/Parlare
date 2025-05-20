@@ -5,10 +5,14 @@ import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import Message from "~/components/message";
 
+import { useAtom } from "jotai";
+import { chatMessagesAtom } from "~/atoms/main-atoms";
+
 import { Send } from "lucide-react";
 
 export default function MainArea(){
 
+    const [chatMessages, setChatMessages] = useAtom(chatMessagesAtom);
     const [areaValue, setAreaValue] = useState("");
     const areaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -51,8 +55,16 @@ export default function MainArea(){
     return (
         <div className="flex-1 h-full flex flex-col bg-slate-100">
             <ScrollArea className="flex-auto mb-1 border border-red-500">
-                <Message type="human" content="Human message test"/>     
-                <Message type="assistant" content="This is a bot response, which is longer than the human response"/>     
+                {chatMessages?.map((msg) => (
+                    <Message 
+                        id={msg.id}
+                        type={msg.type}
+                        content={msg.content}
+                        date={msg.date}
+                    />
+                ))}
+                {/* <Message type="user" content="Human message test"/>     
+                <Message type="assistant" content="This is a bot response, which is longer than the human response"/>  */}
             </ScrollArea>
             <div id="input-area" className="flex flex-col mt-auto mb-4 mx-4 rounded-md shadow-md bg-white select-none transition-[height] duration-75 ease-out">
                 <Textarea

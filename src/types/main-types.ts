@@ -6,4 +6,11 @@ interface ChatItem {
     date: Date;
 }
 
-export type { ChatItem };
+interface ChatMessage {
+    id: string;
+    type: "user" | "assistant";
+    date: Date;
+    content: string;
+}
+
+export type { ChatItem, ChatMessage };
