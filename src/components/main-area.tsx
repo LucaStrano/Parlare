@@ -81,7 +81,7 @@ export default function MainArea(){
             date: new Date(),
             content: "This is a bot response",
         };
-        
+
         setChatMessages((prev) => [ ...(prev ?? []), botMsg ]);
     }
 
@@ -106,8 +106,8 @@ export default function MainArea(){
                     onChange={handleAreaChange}
                     onKeyDown={handleOnKeyDown}
                     rows={1}
-                    className="resize-none mt-1 relative max-h-24 overflow-y-auto border-none placeholder:italic transition-[height] duration-100 ease-out"
-                    placeholder="Wite Anything..."
+                    className="resize-none mt-1 relative max-h-24 overflow-y-auto border-none placeholder:italic placeholder:text-sm transition-[height] duration-100 ease-out"
+                    placeholder="Write Here"
                 >
                 </Textarea>
                 <div onClick={() => {areaRef.current?.focus()}} className="flex flex-row justify-end">
