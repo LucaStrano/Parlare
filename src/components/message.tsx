@@ -11,9 +11,10 @@ export default function Message(
     content
     } : ChatMessage
 ){
+    const alignment = type === 'assistant' ? 'justify-start' : 'justify-end';
     return (
-        <div className={`flex flex-1 ${type==='assistant'? 'flex-row' : 'flex-row-reverse'} m-4`}>
-            <div id={id} className="bg-primary text-primary-foreground w-fit max-w-[75%] rounded-lg p-2">
+        <div className={`flex ${alignment} w-full px-4 pt-4 select-none`}>
+            <div id={id} className="bg-primary text-primary-foreground max-w-[75%] rounded-lg p-2 break-all select-text">
                 {content}
             </div>
         </div>
