@@ -13,7 +13,7 @@ export default function Message(
 ){
     return (
         <div className={`flex flex-1 ${type==='assistant'? 'flex-row' : 'flex-row-reverse'} m-4`}>
-            <div id={id} className="bg-red-200 w-fit max-w-[75%] rounded-md p-2">
+            <div id={id} className="bg-primary text-primary-foreground w-fit max-w-[75%] rounded-lg p-2">
                 {content}
             </div>
         </div>

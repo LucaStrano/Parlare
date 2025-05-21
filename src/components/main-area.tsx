@@ -78,8 +78,8 @@ export default function MainArea(){
     }
 
     return (
-        <div className="flex-1 h-full flex flex-col bg-slate-100">
-            <ScrollArea className="flex-auto mb-1 border border-red-500">
+        <div className="flex-1 h-full flex flex-col">
+            <ScrollArea className="flex-auto mb-1">
                 {chatMessages?.map((msg) => (
                     <Message 
                         id={msg.id}
@@ -91,7 +91,7 @@ export default function MainArea(){
                 {/* <Message type="user" content="Human message test"/>     
                 <Message type="assistant" content="This is a bot response, which is longer than the human response"/>  */}
             </ScrollArea>
-            <div id="input-area" className="flex flex-col mt-auto mb-4 mx-4 rounded-md shadow-md bg-white select-none transition-[height] duration-75 ease-out">
+            <div id="input-area" className="flex flex-col mt-auto mb-4 mx-4 rounded-md border bg-card text-card-foreground shadow select-none transition-[height] duration-75 ease-out">
                 <Textarea
                     ref={areaRef}
                     value={areaValue} 
