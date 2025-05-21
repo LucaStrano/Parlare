@@ -78,10 +78,10 @@ export default function MainArea(){
     }
 
     return (
-        <div className="flex-1 h-full flex flex-col">
+        <div className="flex-1 flex flex-col overflow-hidden">
             <ScrollArea className="flex-auto mb-1">
                 {chatMessages?.map((msg) => (
-                    <Message 
+                    <Message key={msg.id}
                         id={msg.id}
                         type={msg.type}
                         content={msg.content}
