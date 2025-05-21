@@ -64,17 +64,25 @@ export default function MainArea(){
         const msg = areaValue.trim();
         if (!msg) return;
 
-        const msgObj : ChatMessage = {
+        const userMsg : ChatMessage = {
             id: Date.now().toString(),
             type: "user",
             date: new Date(),
             content: msg,
         };
-        setChatMessages((prev) => [ ...(prev ?? []), msgObj ]);
+        setChatMessages((prev) => [ ...(prev ?? []), userMsg ]);
         setAreaValue("");
         if(areaRef.current){
             areaRef.current.style.height = "auto";
         }
+        const botMsg : ChatMessage = {
+            id: Date.now().toString(),
+            type: "assistant",
+            date: new Date(),
+            content: "This is a bot response",
+        };
+        
+        setChatMessages((prev) => [ ...(prev ?? []), botMsg ]);
     }
 
     return (
