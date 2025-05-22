@@ -19,6 +19,7 @@ import { Search, Settings } from "lucide-react"
 import {chatsAtom, isSidebarOpenAtom} from "~/atoms/main-atoms"
 import { useAtomValue, useSetAtom } from "jotai"
 import { useEffect } from "react"
+import TooltipButton from "./tooltip-button"
 
 function SidebarStateManager() {
   const { open } = useSidebar();
@@ -73,7 +74,15 @@ export default function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter>
-        <Settings/>
+
+        <TooltipButton
+          tooltipText="Settings"
+          id="settings"
+          className="rotate-90"
+        >
+          <Settings/>
+        </TooltipButton>
+
       </SidebarFooter>
       
     </Sidebar>

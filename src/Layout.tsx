@@ -1,6 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "~/components/ui/sidebar"
 
-import { Button } from "~/components/ui/button";
+import TooltipButton from "~/components/tooltip-button";
 
 import AppSidebar from "~/components/app-sidebar"
 import ChatTitle from "~/components/chat-title";
@@ -58,11 +58,14 @@ export default function Layout({
       {platform === "macos" && !isFullScreen && !isFocused && <MockTrafficLights />}
       <AppSidebar/>
       <div className="z-30 flex flex-row justify-between items-center fixed w-16 h-11 left-20">
-          <SidebarTrigger />
-          <Button id="new-chat" variant="ghost" size="icon" className="h-7 w-7">
-            <MessageSquarePlus width={22} height={22}></MessageSquarePlus>
-          </Button>
-        </div>
+        <SidebarTrigger />
+        <TooltipButton
+          tooltipText="New Chat"
+          id="new-chat"
+        >
+          <MessageSquarePlus></MessageSquarePlus>
+        </TooltipButton>
+      </div>
       <main className="h-screen w-screen overflow-hidden flex flex-col">
         <ChatTitle>
           <h1 className={`transition-[margin] duration-300 ease-in-out ${isSidebarOpen ? "ml-4" : "ml-40"}`}>

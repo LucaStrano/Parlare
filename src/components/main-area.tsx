@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, useRef, KeyboardEvent, useEffect } from "react";
 
 import { Textarea } from "~/components/ui/textarea";
+import TooltipButton from "~/components/tooltip-button";
 import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import Message from "~/components/message";
@@ -119,15 +120,15 @@ export default function MainArea(){
                 >
                 </Textarea>
                 <div onClick={() => {areaRef.current?.focus()}} className="flex flex-row justify-end">
-                    <Button
+                    <TooltipButton 
+                        tooltipText="Send"
+                        className="m-2"
                         onClick={sendMessage}
                         disabled={areaValue.trim() === ""}
                         id="new-chat"
-                        variant="ghost"
-                        size="icon"
-                        className="h-7 w-7 m-2">
-                        <Send width={22} height={22} className="rotate-45 -translate-x-[4px]"></Send>
-                    </Button>
+                    >
+                        <Send className="rotate-45 -translate-x-[4px]"></Send>
+                    </TooltipButton>
                 </div>
             </div>
         </div>
