@@ -2,14 +2,13 @@ import { useState, ChangeEvent, useRef, KeyboardEvent, useEffect } from "react";
 
 import { Textarea } from "~/components/ui/textarea";
 import TooltipButton from "~/components/tooltip-button";
-import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import Message from "~/components/message";
 
 import { useAtom } from "jotai";
 import { chatMessagesAtom } from "~/atoms/main-atoms";
 
-import { Send } from "lucide-react";
+import { Send, ArrowDown } from "lucide-react";
 import { ChatMessage } from "~/types/main-types";
 import { v4 as uuidv4 } from "uuid";
 
@@ -17,6 +16,7 @@ export default function MainArea(){
 
     const [chatMessages, setChatMessages] = useAtom(chatMessagesAtom);
     const [areaValue, setAreaValue] = useState("");
+    const [isScrolledUp, setIsScrolledUp] = useState(false);
     const areaRef = useRef<HTMLTextAreaElement>(null);
     const scrollAreaViewportRef = useRef<HTMLDivElement>(null);
 
@@ -25,6 +25,35 @@ export default function MainArea(){
             scrollAreaViewportRef.current.scrollTop = scrollAreaViewportRef.current.scrollHeight;
         }
     }, [chatMessages]); // set scroll position to bottom each message
+
+    useEffect(() => {
+
+        const viewport = scrollAreaViewportRef.current;
+        if (!viewport) return;
+
+        const checkScrollPosition = () => {
+
+            if (!viewport) return;
+
+            const { scrollTop, scrollHeight, clientHeight } = scrollAreaViewportRef.current;
+
+            if (scrollHeight <= clientHeight) {
+                setIsScrolledUp(false);
+                return;
+            }
+
+            // how much content is hidden below the current viewport
+            const hiddenContentBelow = scrollHeight - (scrollTop + clientHeight);
+
+            setIsScrolledUp(hiddenContentBelow > scrollHeight * 0.25); // 25% threshold
+        };
+
+        viewport.addEventListener('scroll', checkScrollPosition);
+        
+        return () => {
+            if (viewport) viewport.removeEventListener('scroll', checkScrollPosition);
+        };
+    }, []);
 
     function handleAreaChange(event: ChangeEvent<HTMLTextAreaElement> ){
 
@@ -96,7 +125,25 @@ export default function MainArea(){
 
     return (
         <div className="flex-1 flex flex-col overflow-hidden">
-            <ScrollArea className="flex-auto mb-1" viewportRef={scrollAreaViewportRef}>
+
+            <ScrollArea className="flex-auto mb-2" viewportRef={scrollAreaViewportRef}>
+
+
+                <TooltipButton
+                    tooltipText="Return"
+                    variant="default"
+                    id="return"
+                    className={`absolute left-1/2 -translate-x-1/2 bottom-2 rounded-full z-50 h-9 w-9 transition-[opacity] ease-in duration-75 ${isScrolledUp ? "opacity-100" : "opacity-0"}`}
+                    onClick={() => {
+                        if (scrollAreaViewportRef.current) {
+                            scrollAreaViewportRef.current.scrollTop = scrollAreaViewportRef.current.scrollHeight;
+                        }
+                        setIsScrolledUp(false);
+                    }}
+                    >
+                        <ArrowDown />
+                </TooltipButton> {/* Scroll to bottom button */}
+
                 {chatMessages?.map((msg) => (
                     <Message key={msg.id}
                         id={msg.id}
