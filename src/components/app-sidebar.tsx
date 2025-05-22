@@ -49,7 +49,7 @@ export default function AppSidebar() {
           <SidebarGroupContent>
             <div className="relative flex-row items-center">
               <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2"/>
-              <Input type="text" placeholder="Search" className="h-8 placeholder:italic placeholder:text-sm text-primary-foreground pl-8 select-text">
+              <Input type="text" placeholder="Search" className="h-8 placeholder:italic placeholder:text-sm text-primary-foreground pl-8">
               </Input>
             </div>
           </SidebarGroupContent>

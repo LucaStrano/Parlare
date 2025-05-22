@@ -12,8 +12,8 @@ export default function Message(
     const color = type === 'assistant' ? 'bg-muted' : 'bg-primary';
     return (
         <div className={`flex ${alignment} w-full px-4 pt-4 select-none`}>
-            <div id={id} className={`${color} text-primary-foreground max-w-[75%] rounded-lg p-2 break-all select-text`}>
-                {content}
+            <div id={id} className={`${color} text-primary-foreground max-w-[75%] rounded-lg p-2 break-all`}>
+                <span className="select-text">{content}</span>
             </div>
         </div>
     );
