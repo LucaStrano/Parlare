@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useRef, KeyboardEvent } from "react";
+import { useState, ChangeEvent, useRef, KeyboardEvent, useEffect } from "react";
 
 import { Textarea } from "~/components/ui/textarea";
 import { Button } from "~/components/ui/button";
@@ -10,12 +10,20 @@ import { chatMessagesAtom } from "~/atoms/main-atoms";
 
 import { Send } from "lucide-react";
 import { ChatMessage } from "~/types/main-types";
+import { v4 as uuidv4 } from "uuid";
 
 export default function MainArea(){
 
     const [chatMessages, setChatMessages] = useAtom(chatMessagesAtom);
     const [areaValue, setAreaValue] = useState("");
     const areaRef = useRef<HTMLTextAreaElement>(null);
+    const scrollAreaViewportRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (scrollAreaViewportRef.current) {
+            scrollAreaViewportRef.current.scrollTop = scrollAreaViewportRef.current.scrollHeight;
+        }
+    }, [chatMessages]); // set scroll position to bottom each message
 
     function handleAreaChange(event: ChangeEvent<HTMLTextAreaElement> ){
 
@@ -65,7 +73,7 @@ export default function MainArea(){
         if (!msg) return;
 
         const userMsg : ChatMessage = {
-            id: Date.now().toString(),
+            id: uuidv4(),
             type: "user",
             date: new Date(),
             content: msg,
@@ -87,7 +95,7 @@ export default function MainArea(){
 
     return (
         <div className="flex-1 flex flex-col overflow-hidden">
-            <ScrollArea className="flex-auto mb-1">
+            <ScrollArea className="flex-auto mb-1" viewportRef={scrollAreaViewportRef}>
                 {chatMessages?.map((msg) => (
                     <Message key={msg.id}
                         id={msg.id}
